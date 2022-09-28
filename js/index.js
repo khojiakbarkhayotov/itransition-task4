@@ -13,7 +13,7 @@ let current;
 
 // functionality
 
-function generateMarkup(user) {
+function generateMarkup(user, i) {
   const status = user.status;
   const markup = `
   <tr>
@@ -27,6 +27,7 @@ function generateMarkup(user) {
           />
       </div>
   </th>
+  <td>${i}</td>
   <td>${user.name}</td>
   <td>${user.email}</td>
   <td>${user.id}</td>
@@ -40,8 +41,8 @@ function generateMarkup(user) {
   return markup;
 }
 
-function insert(user) {
-  parentEl.insertAdjacentHTML("beforeend", generateMarkup(user));
+function insert(user, i) {
+  parentEl.insertAdjacentHTML("beforeend", generateMarkup(user, i));
 }
 
 function clearContent() {
@@ -51,8 +52,8 @@ function clearContent() {
 }
 
 function load() {
-  users.forEach((user) => {
-    insert(user);
+  users.forEach((user, index) => {
+    insert(user, index + 1);
   });
 }
 
@@ -79,12 +80,11 @@ function handleBlock(status) {
     const value = el.getAttribute("value");
     users.forEach((user, index) => {
       if (user.id === value) {
+        current = Object.assign({}, user);
         if (typeof status != "object") {
-          current = Object.assign({}, user);
           user.status = status;
-          user.currentUser = false;
+          if (!status) user.currentUser = false;
         } else {
-          current = user;
           users.splice(index, 1);
           user.currentUser = false;
         }
@@ -109,6 +109,7 @@ deleteUser.addEventListener("click", handleBlock);
 
 logout.addEventListener("click", function () {
   users.forEach((user) => (user.currentUser = false));
+  localStorage.setItem("users", JSON.stringify(users));
   window.location = "../index.html";
 });
 
