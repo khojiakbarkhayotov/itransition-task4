@@ -11,7 +11,7 @@ const errorMsgDiv = errorMsg.closest("div");
 
 let user;
 let users = JSON.parse(localStorage.getItem("users"));
-if (users.length < 1) users = [];
+if (users.length < 1 || !users) users = [];
 
 // functionality
 inputName.focus();
