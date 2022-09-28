@@ -73,6 +73,7 @@ checkBoxMain.addEventListener("click", function () {
   }
 });
 
+let active = "";
 function handleBlock(status) {
   // console.log(typeof status);
   const list = [...userList].filter((node) => node.checked === true);
@@ -84,6 +85,7 @@ function handleBlock(status) {
         if (typeof status != "object") {
           user.status = status;
           if (!status) user.currentUser = false;
+          else active = "yes";
         } else {
           users.splice(index, 1);
           user.currentUser = false;
@@ -93,9 +95,15 @@ function handleBlock(status) {
     });
   });
 
+  if (current.currentUser == true && active !== "yes") {
+    back();
+  }
+  // reload page
+  else location.reload();
+}
+
   if (current.currentUser == true) {
-    // console.log("bankai");
-    window.location = "../index.html";
+   back()
   }
   // reload page
   else location.reload();
@@ -107,10 +115,11 @@ unblock.addEventListener("click", handleBlock.bind(this, true));
 
 deleteUser.addEventListener("click", handleBlock);
 
-logout.addEventListener("click", function () {
+logout.addEventListener("click", back);
+
+function back() {
   users.forEach((user) => (user.currentUser = false));
   localStorage.setItem("users", JSON.stringify(users));
   window.location = "../index.html";
-});
-
+}
 // users.splice(index, 1);
