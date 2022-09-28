@@ -27,9 +27,10 @@ form.addEventListener("submit", function (e) {
   }
   const users = JSON.parse(localStorage.getItem("users"));
   // console.log(users);
-  if(!users) users = [];
+    let act = true;
   users.forEach((user) => {
-    if (user?.email === email && user?.password === password) {
+    if (user.email == email && user.password == password) {
+      act = false;
       if (user.status) {
         user.lastTime = new Date().toLocaleString();
         user.currentUser = true;
@@ -38,11 +39,12 @@ form.addEventListener("submit", function (e) {
       } else {
         raiseError("You has been blocked! Re-register again ;)");
       }
-    } else {
-      raiseError("Incorrect password or email! Please try again ;)");
     }
   });
 
+  if (act === true) {
+    raiseError("Incorrect password or email! Please try again ;)");
+  }
   clear();
 });
 
