@@ -27,7 +27,8 @@ form.addEventListener("submit", function (e) {
   }
   const users = JSON.parse(localStorage.getItem("users"));
   // console.log(users);
-  let res = "";
+  if(!users) users = [];
+  let res = "fail";
   users.forEach((user) => {
     if (user?.email === email && user?.password === password) {
       if (user.status) {
