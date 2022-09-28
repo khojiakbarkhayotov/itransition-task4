@@ -36,18 +36,20 @@ form.addEventListener("submit", function (e) {
         localStorage.setItem("users", JSON.stringify(users));
         window.location = "../main.html";
       } else {
-        errorMsg.textContent = "You has been blocked! Re-register again ;)";
-        errorMsgDiv.classList.remove("hidden");
+        raiseError("You has been blocked! Re-register again ;)");
       }
-      // res = "fail";
     } else {
-      // if login is not successful
-      errorMsg.textContent = "Incorrect password or email! Please try again ;)";
-      errorMsgDiv.classList.remove("hidden");
+      raiseError("Incorrect password or email! Please try again ;)");
     }
   });
+
   clear();
 });
+
+function raiseError(msg) {
+  errorMsg.textContent = msg;
+  errorMsgDiv.classList.remove("hidden");
+}
 
 // hiding errors
 [inputEmail, inputPassword].forEach((el) =>
