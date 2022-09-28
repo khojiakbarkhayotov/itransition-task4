@@ -102,13 +102,6 @@ function handleBlock(status) {
   else location.reload();
 }
 
-  if (current.currentUser == true) {
-   back()
-  }
-  // reload page
-  else location.reload();
-}
-
 block.addEventListener("click", handleBlock.bind(this, false));
 
 unblock.addEventListener("click", handleBlock.bind(this, true));
