@@ -86,7 +86,6 @@ function handleBlock(status) {
           if (!status) user.currentUser = false;
         } else {
           users.splice(index, 1);
-          current.status = false;
           user.currentUser = false;
         }
         localStorage.setItem("users", JSON.stringify(users));
@@ -94,7 +93,7 @@ function handleBlock(status) {
     });
   });
 
-  if (current.currentUser == true && !current.status) {
+  if (current.currentUser == true) {
     // console.log("bankai");
     window.location = "../index.html";
   }
